@@ -3,11 +3,8 @@ package com.gmail.mtec.sistemas.soccernews.domain;
 public class News {
     private String tittle;
     private String description;
-
-    public News(String tittle, String description) {
-        this.tittle = tittle;
-        this.description = description;
-    }
+    private String image;
+    private String link;
 
     public String getTittle() {
         return tittle;
@@ -23,5 +20,21 @@ public class News {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

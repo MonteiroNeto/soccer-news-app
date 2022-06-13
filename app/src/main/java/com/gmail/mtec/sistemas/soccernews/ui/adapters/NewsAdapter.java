@@ -1,5 +1,7 @@
 package com.gmail.mtec.sistemas.soccernews.ui.adapters;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gmail.mtec.sistemas.soccernews.R;
 import com.gmail.mtec.sistemas.soccernews.databinding.NewsItemBinding;
 import com.gmail.mtec.sistemas.soccernews.domain.News;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,6 +38,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.myViewHolder> 
         holder.binding.tvTittle.setText(item.getTittle());
         holder.binding.tvDesription.setText(item.getDescription());
 
+        //Usando a biblioteca Picasso para recuperar a imagem
+        Picasso.get().load(item.getImage())
+                .fit()
+                .into(holder.binding.ivTimeLine);
+
+        //metodoCLick OpenLink
+        holder.binding.btOpenLink.setOnClickListener(view ->{
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(item.getLink()));
+            holder.itemView.getContext().startActivity(intent);
+
+        });
     }
 
     @Override
