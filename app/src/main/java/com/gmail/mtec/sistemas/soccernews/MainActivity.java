@@ -7,12 +7,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 
+import com.gmail.mtec.sistemas.soccernews.data.data_local.AppDatabase;
 import com.gmail.mtec.sistemas.soccernews.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        setupLocalDbRoom();
+    }
+
+
+
+    private void setupLocalDbRoom() {
+        //Instanciando persistencia de dados com ROOM
+        db = Room.databaseBuilder(this,
+                        AppDatabase.class, "db-soccer")
+                .allowMainThreadQueries()//permitir salvar dados no ROOM na Activity principal
+                .build();
+
+    }
+    public AppDatabase getDb() {
+        return db;
     }
 
 }

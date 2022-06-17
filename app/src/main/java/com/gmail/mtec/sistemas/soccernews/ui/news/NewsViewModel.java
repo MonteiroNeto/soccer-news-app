@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import com.gmail.mtec.sistemas.soccernews.data.SoccerNewsApi;
 import com.gmail.mtec.sistemas.soccernews.domain.News;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -18,7 +17,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsViewModel extends ViewModel {
 
+    public enum State{
+
+        DOING,DONE,ERROR;
+
+
+    }
+
     private final MutableLiveData<List<News>> mNews = new MutableLiveData<>();
+    private final MutableLiveData<State> mStates = new MutableLiveData<>();
 
     private final SoccerNewsApi serviceApi;
 
@@ -30,18 +37,26 @@ public class NewsViewModel extends ViewModel {
 
         serviceApi = retrofit.create(SoccerNewsApi.class);
 
+
+
+
+
+
         this.setupService();
 
     }
 
     private void setupService() {
+        mStates.setValue(State.DOING);
         serviceApi.getNewsApi().enqueue(new Callback<List<News>>() {
             @Override
             public void onResponse(Call<List<News>> call, Response<List<News>> response) {
                 if (response.isSuccessful()){
                     mNews.setValue(response.body());
+                    mStates.setValue(State.DONE);
                 }else{
                     //TODO criar metodo para tratar o errro
+                    mStates.setValue(State.ERROR);
                 }
             }
 
@@ -56,4 +71,11 @@ public class NewsViewModel extends ViewModel {
     public LiveData<List<News>> getNews() {
         return mNews;
     }
+    public LiveData<State> getState() {
+        return mStates;
+    }
+
+
+
+
 }

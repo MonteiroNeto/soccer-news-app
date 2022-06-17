@@ -50,4 +50,8 @@ dependencies {
     //Picasso manipular imagem da web   https://github.com/square/picasso
     implementation 'com.squareup.picasso:picasso:2.8'
 
+    //ROOMS banco de dados local: https://developer.android.com/training/data-storage/room?hl=pt-br
+    implementation "androidx.room:room-runtime:2.4.2"
+    annotationProcessor "androidx.room:room-compiler:2.4.2"
+
 }

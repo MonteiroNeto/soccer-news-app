@@ -1,17 +1,33 @@
 package com.gmail.mtec.sistemas.soccernews.domain;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class News {
+
+    @PrimaryKey
+    public int id;
+
     private String tittle;
     private String description;
     private String image;
     private String link;
+    public Boolean favorito ;
 
-    public String getTittle() {
-        return tittle;
-    }
+
+
+
+    public void setId(int id) {this.id = id; }
+
+    public int getId() {return id; }
 
     public void setTittle(String tittle) {
         this.tittle = tittle;
+    }
+
+    public String getTittle() {
+        return tittle;
     }
 
     public String getDescription() {
@@ -37,4 +53,8 @@ public class News {
     public void setLink(String link) {
         this.link = link;
     }
+
+    public Boolean getFavorito() {return favorito;}
+
+    public void setFavorito(Boolean favorito) {this.favorito = favorito;}
 }
